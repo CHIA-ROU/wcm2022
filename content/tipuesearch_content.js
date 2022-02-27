@@ -1,1 +1,1 @@
-var tipuesearch = {"pages": [{'title': 'About', 'text': 'wcm2022 \n', 'tags': '', 'url': 'About.html'}]};
+var tipuesearch = {"pages": [{'title': 'About', 'text': 'wcm2022 \n 四設計一甲 410231104 呂佳柔 \n 下學期選課 網際內容管理', 'tags': '', 'url': 'About.html'}]};
