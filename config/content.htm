@@ -2,6 +2,7 @@
 <p>wcm2022</p>
 <p>四設計一甲 410231104 呂佳柔</p>
 <p>下學期選課 網際內容管理</p>
+<p></p>
 <h1>Midterm Exam</h1>
 <p>題目1.如何設定nginx，讓其中所伺服的檔案只允許系上電腦下載。</p>
 <p>解答:</p>
@@ -49,3 +50,22 @@ var winkVideoData = {
 <p>6. 程式碼中winkVideoData後的項目數字需相同</p>
 <p>7. "/downloads/<span style="background-color: #ffff99;">w8_project 1.mp4</span>"改成正確檔案名稱</p>
 <p>8. save</p>
+<h1>cadlab server</h1>
+<p>2022/5/13</p>
+<p>1. 利用cadlab中沒有啟動還原保護的電腦磁區練習安裝server利用</p>
+<p>2. 利用ping指令，測試是否可以經由NAT連線到系上網路連外的C:\Users\cadlab&gt;ping -t</p>
+<p>    140.130.17.254</p>
+<p>3. 找到組別對應主機7-3(wcmg5)-<span style="color: #0000ff;">192.168.1.173</span></p>
+<p><span style="color: #000000;">4. 網路連線&gt;乙太網路&gt;內容&gt;IPv4&gt;IP位址更改為 <span>192.168.1.173&gt;DNS伺服器位址 168.95.1.1</span></span></p>
+<p><span style="color: #000000;"><span>5. 確定電腦可以連外後，到網址 wcm.cycu.org:88上下載設定網際內容管理伺服器所需要的程式檔案</span></span></p>
+<p>    可攜系統portable_python_wcm2022和nginx-1.20.2</p>
+<p>6. 搜尋Nssm，進入網站Download下載nssm 2.24(64-bit)，為了將之後設定的伺服器能轉為電腦操作系統</p>
+<p>    對應的服務</p>
+<p>7. 三個下載的程式檔案分別解壓縮至 C槽&gt;使用者&gt;cadlab&gt;wcm2022ag5(組別對應目錄)</p>
+<p>8. 打開cmd，以系統管理員身分執行nssm將nginx內建轉為操作系統中的service</p>
+<p>9. C:\Users\cadlab\wcm2022ag5&gt;nssm install nginx</p>
+<p>10. 執行後跳出nginx服務設定表單的視窗，路徑Path填入執行路徑 <span>Users\cadlab\wcm2022ag5\nginx-</span></p>
+<p><span>     1.20.2\nginx.exe</span></p>
+<p><span>11. Service name輸入nginx，確認後按下Install service</span></p>
+<p><span>12. Win10開始&gt;電腦管理&gt;服務與應用程式&gt;開啟nginx服務&gt;確認顯示"執行中"</span></p>
+<p><span>13. 網頁輸入 192.168.1.173，利用瀏覽器連接，顯示出內建設定，Welcome to nginx!</span></p>
