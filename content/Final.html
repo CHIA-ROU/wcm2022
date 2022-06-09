@@ -2,7 +2,7 @@
         <head>
         <title>wcm2022</title>
         <meta charset="utf-8">
-<meta property="head" content="H2">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -139,249 +139,30 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Online << <a href='Online.html'>Previous</a> <a href='w14.html'>Next</a> >> w14<br /><h1>w13</h1>
-<p>2022/5/20</p>
-<p><span>在個人動態與靜態網頁中配置 Brython 程式環境, 並啟動執行線上程式</span></p>
-<p><span>執行結果</span></p>
-<!-- 導入 brython 程式庫 -->
-<script src="./../cmsimde/static/brython.js"></script>
-<script src="./../cmsimde/static/brython_stdlib.js"></script>
-<!-- 啟動 Brython -->
-<script>
-window.onload=function(){
-brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
-}
-</script>
-<div id="brython_div"></div>
-<script type="text/python">
-# from https://levelup.gitconnected.com/writing-tetris-in-python-2a16bddb5318
-# 暫時關閉 system proxy 設定後,  pip install pygame
-#import pygame
-import random
-# 以下為 Brython 新增
-from browser import document as doc
-from browser import html
-import browser.timer
-
-# 利用 html 建立一個 CANVAS 標註物件, 與變數 canvas 對應
-canvas = html.CANVAS(width = 400, height = 500, id="canvas")
-brython_div = doc["brython_div"]
-brython_div <= canvas
-ctx = canvas.getContext("2d")
-
-colors = [
-    (0, 0, 0),
-    (120, 37, 179),
-    (100, 179, 179),
-    (80, 34, 22),
-    (80, 134, 22),
-    (180, 34, 22),
-    (180, 34, 122),
-]
-
-
-class Figure:
-    x = 0
-    y = 0
-
-    figures = [
-        [[1, 5, 9, 13], [4, 5, 6, 7]],
-        [[4, 5, 9, 10], [2, 6, 5, 9]],
-        [[6, 7, 9, 10], [1, 5, 6, 10]],
-        [[1, 2, 5, 9], [0, 4, 5, 6], [1, 5, 9, 8], [4, 5, 6, 10]],
-        [[1, 2, 6, 10], [5, 6, 7, 9], [2, 6, 10, 11], [3, 5, 6, 7]],
-        [[1, 4, 5, 6], [1, 4, 5, 9], [4, 5, 6, 9], [1, 5, 6, 9]],
-        [[1, 2, 5, 6]],
-    ]
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.type = random.randint(0, len(self.figures) - 1)
-        self.color = random.randint(1, len(colors) - 1)
-        self.rotation = 0
-
-    def image(self):
-        return self.figures[self.type][self.rotation]
-
-    def rotate(self):
-        self.rotation = (self.rotation + 1) % len(self.figures[self.type])
-
-
-class Tetris:
-    level = 2
-    score = 0
-    state = "start"
-    field = []
-    height = 0
-    width = 0
-    x = 100
-    y = 60
-    zoom = 20
-    figure = None
-
-    def __init__(self, height, width):
-        self.height = height
-        self.width = width
-        self.field = []
-        self.score = 0
-        self.state = "start"
-        for i in range(height):
-            new_line = []
-            for j in range(width):
-                # 起始時每一個都填入 0
-                new_line.append(0)
-            self.field.append(new_line)
-
-    def new_figure(self):
-        self.figure = Figure(3, 0)
-
-    def intersects(self):
-        intersection = False
-        for i in range(4):
-            for j in range(4):
-                if i * 4 + j in self.figure.image():
-                    # block 到達底部, 左右兩邊界, 或該座標有其他 block
-                    if i + self.figure.y > self.height - 1 or \
-                            j + self.figure.x > self.width - 1 or \
-                            j + self.figure.x < 0 or \
-                            self.field[i + self.figure.y][j + self.figure.x] > 0:
-                        intersection = True
-        return intersection
-
-    def break_lines(self):
-        lines = 0
-        for i in range(1, self.height):
-            zeros = 0
-            for j in range(self.width):
-                if self.field[i][j] == 0:
-                    zeros += 1
-            if zeros == 0:
-                lines += 1
-                for i1 in range(i, 1, -1):
-                    for j in range(self.width):
-                        self.field[i1][j] = self.field[i1 - 1][j]
-        self.score += lines ** 2
-
-    def go_space(self):
-        while not self.intersects():
-            self.figure.y += 1
-        self.figure.y -= 1
-        self.freeze()
-
-    def go_down(self):
-        self.figure.y += 1
-        if self.intersects():
-            self.figure.y -= 1
-            self.freeze()
-
-    def freeze(self):
-        for i in range(4):
-            for j in range(4):
-                if i * 4 + j in self.figure.image():
-                    self.field[i + self.figure.y][j + self.figure.x] = self.figure.color
-        self.break_lines()
-        self.new_figure()
-        if self.intersects():
-            self.state = "gameover"
-
-    def go_side(self, dx):
-        old_x = self.figure.x
-        self.figure.x += dx
-        if self.intersects():
-            self.figure.x = old_x
-
-    def rotate(self):
-        old_rotation = self.figure.rotation
-        self.figure.rotate()
-        if self.intersects():
-            self.figure.rotation = old_rotation
-
-# Define some colors
-# from https://stackoverflow.com/questions/3380726/converting-a-rgb-color-tuple-to-a-six-digit-code
-BLACK = '#%02x%02x%02x' % (0, 0, 0)
-WHITE = '#%02x%02x%02x' % (255, 255, 255)
-GRAY = '#%02x%02x%02x' % (128, 128, 128)
-
-done = False
-fps = 25
-game = Tetris(20, 10)
-counter = 0
-
-pressing_down = False
-
-def key_down(eve):
-    key = eve.keyCode
-    #if event.type == pygame.QUIT:
-    # 32 is pause
-    if key == 32:
-        done = True
-    # 82 is r key to rotate
-    if key == 82:
-        game.rotate()
-    # 40 is down key
-    if key == 40:
-        pressing_down = True
-    # 37 is left key
-    if key == 37:
-        game.go_side(-1)
-    # 39 is right key
-    if key == 39:
-        game.go_side(1)
-    # 68 is d key to move block to bottom
-    if key == 68:
-        game.go_space()
-    # 27 is escape
-    # reset the game
-    if key == 27:
-        game.__init__(20, 10)
-
-def key_up(eve):
-    key = eve.keyCode
-    # 40 is down key
-    if key == 40:
-        pressing_down = False
-
-#while not done:
-def do_game():
-    global counter
-    if game.figure is None:
-        game.new_figure()
-    counter += 1
-    if counter > 100000:
-        counter = 0
-    if counter % (fps // game.level // 2) == 0 or pressing_down:
-        if game.state == "start":
-            game.go_down()
-    
-    for i in range(game.height):
-        for j in range(game.width):
-            ctx.fillStyle = WHITE
-            #ctx.scale(game.zoom, game.zoom)
-            ctx.fillRect(game.x + game.zoom * j, game.y + game.zoom * i, game.zoom, game.zoom)
-            if game.field[i][j] > 0:
-                ctx.fillStyle = '#%02x%02x%02x' % colors[game.field[i][j]]
-                ctx.fillRect(game.x + game.zoom * j + 1, game.y + game.zoom * i + 1, game.zoom - 2, game.zoom - 1)
-            ctx.lineWidth = 1
-            ctx.strokeStyle = GRAY
-            ctx.beginPath()
-            ctx.rect(game.x + game.zoom * j, game.y + game.zoom * i, game.zoom, game.zoom)
-            ctx.stroke()
-    if game.figure is not None:
-        for i in range(4):
-            for j in range(4):
-                p = i * 4 + j
-                if p in game.figure.image():
-                    ctx.fillStyle = '#%02x%02x%02x' % colors[game.figure.color]
-                    ctx.fillRect(game.x + game.zoom * (j + game.figure.x) + 1,
-                                      game.y + game.zoom * (i + game.figure.y) + 1,
-                                      game.zoom - 2, game.zoom - 2)
-
-doc.addEventListener("keydown", key_down)
-doc.addEventListener("keyup", key_up)
-browser.timer.set_interval(do_game, fps)
-</script>
-<br />Online << <a href='Online.html'>Previous</a> <a href='w14.html'>Next</a> >> w14</div>
+    <div id="tipue_search_content">Tetris 報告2 << <a href='Tetris 報告2.html'>Previous</a> <br /><h1>Final</h1>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W01</span>(2/25)</strong> 1. 創建wcm2022倉儲</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.設定IPv6網路連線</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W02</span>(3/04)</strong> 1.講解python程序</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W03</span>(3/11)</strong> 1.用wink影片添加ssh</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.建立可攜系統</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W04</span>(3/18)</strong> 1.在gist建立能讀取網際檔案的範例程式</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.建立Brython程式環境</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W05</span>(3/25)</strong> 1.無(全校運動會/校慶)</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W06</span>(4/01)</strong> 1.無(清明節放假)</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W07</span>(4/08)</strong> 1.安裝設定nginx</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.以gpg4win查驗下載的檔案的數位簽證</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W08</span>(4/15)</strong> 1.收集組員github 帳號資料</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.添加midterm頁面，期中考題目與答案</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W09</span>(4/22)</strong> 1.用Wink對影片加上註解並放到個人網站(期中</span>考試)</p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W10</span>(4/29)</strong> 1.電腦輔助設計室個人虛擬主機 IP 設定，各組</span>一個</p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W11</span>(5/06)</strong> 1.w11_1a 網路對接</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W12</span>(5/13)</strong> 1.建立Virtualbox虛擬主機</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.在電腦輔助設計室設定伺服器cadlab server</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W13</span>(5/20)</strong> 1.在靜態與動態網頁建立Bython環境，並執行</span>Tetris 遊戲</p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.完成Tetris 線上遊戲專案報告</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W14</span>(5/27)</strong> 1.將舊資料中已退選的成員刪除，放入個人網頁</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W15</span>(6/03)</strong> 1.將Tetris 遊戲加入計分系統報告(端午節放假)</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W16</span>(6/10)</strong> 1.期末報告整理並放入個人網站</span></p><br />Tetris 報告2 << <a href='Tetris 報告2.html'>Previous</a> </div>
         
     <!-- footer -->
       <div class="container">
