@@ -348,6 +348,15 @@ run()
 <script src="/static/jquery-3.3.1.min.js"></script>
 <script src="/static/jquery-ui.1.12.1.min.js"></script>
 <script src="/static/pixi-3.0.5.min.js"></script>
+<sc<h2>w14-score
+<p>Tetris 線上遊戲加入計分系統</p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- for ggame -->
+<p>
+<script src="/static/jquery-3.3.1.min.js"></script>
+<script src="/static/jquery-ui.1.12.1.min.js"></script>
+<script src="/static/pixi-3.0.5.min.js"></script>
 <script src="/static/buzz-1.2.1.js"></script>
 <script src="/static/bs.js"></script>
 <script src="/downloads/brython_modules.js"></script>
@@ -402,7 +411,7 @@ def clear_bd(ev):
     bd.clear()
 # Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
 Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
-Tetrisurl= "https://gist.githubusercontent.com/CHIA-ROU/95f73c74afe38a8ee2ebb3fb70338690/raw/29cec603a3d647b773def730a07af46fd23e3856/w14-%25E8%25A8%2588%25E5%2588%2586"
+Tetrisurl= "https://gist.githubusercontent.com/CHIA-ROU/95f73c74afe38a8ee2ebb3fb70338690/raw/d378f1c125041e034d3be833d7457964f4d8d50b/w14-%25E8%25A8%2588%25E5%2588%2586"
 Tetris = open(Tetrisurl).read()
 Ace.editor.setValue(Tetris)
 Ace.editor.scrollToRow(0)
@@ -421,7 +430,26 @@ doc['clear_bd'].bind('click', clear_bd)
 <p><button id="kw_run">Run</button> <button id="kw_show_console">Output</button> <button id="kw_clear_console">清除輸出區</button><button id="clear_bd">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
 <div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
 <div id="brython_div"></div>
-<div class="col-md-0" height="1" id="graphics-column" width="1"></div><h1>Midterm Exam</h1>
+<div class="col-md-0" height="1" id="graphics-column" width="1"></div><h1>W17</h1>
+<script>
+var winkVideoData = {
+  dataVersion: 1,
+  frameRate: 10,
+  buttonFrameLength: 5,
+  buttonFrameOffset: 2,
+  frameStops: {
+  },
+};
+</script>
+<div class="winkVideoContainerClass"><video autoplay="autoplay" class="winkVideoClass" controls="controls" data-dirname="/static" data-varname="winkVideoData" height="630" muted="true" width="1008">
+<source src="/downloads/w17.mp4" type="video/mp4"/></video>
+<div class="winkVideoOverlayClass"></div>
+<div class="winkVideoControlBarClass"><button class="winkVideoControlBarPlayButtonClass"></button> <button class="winkVideoControlBarPauseButtonClass"></button>
+<div class="winkVideoControlBarProgressLeftClass"></div>
+<div class="winkVideoControlBarProgressEmptyMiddleClass"></div>
+<div class="winkVideoControlBarProgressRightClass"></div>
+</div>
+</div><h1>Midterm Exam</h1>
 <p>題目1.如何設定nginx，讓其中所伺服的檔案只允許系上電腦下載。</p>
 <p>解答:</p>
 <ol>
@@ -543,4 +571,4 @@ var winkVideoData = {
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.完成Tetris 線上遊戲專案報告</span></p>
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W14</span>(5/27)</strong> 1.將舊資料中已退選的成員刪除，放入個人網頁</span></p>
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W15</span>(6/03)</strong> 1.將Tetris 遊戲加入計分系統報告(端午節放假)</span></p>
-<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W16</span>(6/10)</strong> 1.期末報告整理並放入個人網站</span></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W16</span>(6/10)</strong> 1.期末報告整理並放入個人網站</span></p></sc<h2></p>
