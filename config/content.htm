@@ -4,7 +4,8 @@
 <p>下學期選課 網際內容管理</p>
 <p>倉儲:<a href="https://github.com/CHIA-ROU/wcm2022">https://github.com/CHIA-ROU/wcm2022</a></p>
 <p>網頁:<a href="https://chia-rou.github.io/wcm2022/content/index.html">https://chia-rou.github.io/wcm2022/content/index.html</a> </p>
-<p></p><h1>Online</h1>
+<p></p>
+<h1>Online</h1>
 <h2>w13</h2>
 <p>2022/5/20</p>
 <p><span>在個人動態與靜態網頁中配置 Brython 程式環境, 並啟動執行線上程式</span></p>
@@ -341,15 +342,7 @@ run()
 <p></p>
 <h2>w14-score</h2>
 <p>Tetris 線上遊戲加入計分系統</p>
-<script src="/static/brython.js"></script>
-<script src="/static/brython_stdlib.js"></script>
-<!-- for ggame -->
-<p>
-<script src="/static/jquery-3.3.1.min.js"></script>
-<script src="/static/jquery-ui.1.12.1.min.js"></script>
-<script src="/static/pixi-3.0.5.min.js"></script>
-<sc<h2>w14-score
-<p>Tetris 線上遊戲加入計分系統</p>
+<p></p>
 <script src="/static/brython.js"></script>
 <script src="/static/brython_stdlib.js"></script>
 <!-- for ggame -->
@@ -411,7 +404,7 @@ def clear_bd(ev):
     bd.clear()
 # Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
 Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
-Tetrisurl= "https://gist.githubusercontent.com/CHIA-ROU/95f73c74afe38a8ee2ebb3fb70338690/raw/d378f1c125041e034d3be833d7457964f4d8d50b/w14-%25E8%25A8%2588%25E5%2588%2586"
+Tetrisurl= "https://gist.githubusercontent.com/CHIA-ROU/95f73c74afe38a8ee2ebb3fb70338690/raw/57993ab9e757f31f6f0cac566627c2ba80339352/w14-%25E8%25A8%2588%25E5%2588%2586"
 Tetris = open(Tetrisurl).read()
 Ace.editor.setValue(Tetris)
 Ace.editor.scrollToRow(0)
@@ -428,9 +421,7 @@ doc['clear_bd'].bind('click', clear_bd)
 <p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
 <form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src', 'kw_filename');" type="submit" value="Save"/></form>
 <p><button id="kw_run">Run</button> <button id="kw_show_console">Output</button> <button id="kw_clear_console">清除輸出區</button><button id="clear_bd">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
-<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
-<div id="brython_div"></div>
-<div class="col-md-0" height="1" id="graphics-column" width="1"></div><h1>W17</h1>
+<h1>W17</h1>
 <script>
 var winkVideoData = {
   dataVersion: 1,
@@ -449,7 +440,8 @@ var winkVideoData = {
 <div class="winkVideoControlBarProgressEmptyMiddleClass"></div>
 <div class="winkVideoControlBarProgressRightClass"></div>
 </div>
-</div><h1>Midterm Exam</h1>
+</div>
+<h1>Midterm Exam</h1>
 <p>題目1.如何設定nginx，讓其中所伺服的檔案只允許系上電腦下載。</p>
 <p>解答:</p>
 <ol>
@@ -466,7 +458,8 @@ var winkVideoData = {
 <li><span face="monospace" style="font-family: monospace;"><span face="monospace" style="font-family: monospace;">網站顯示 <strong>Welcome to nginx!</strong></span></span></li>
 </ol>
 <p>題目2.如何利用gpg4win查驗所下載的<span>nfginx檔案與官方網站所附的數位簽章吻合。</span></p>
-<p><span>解答</span></p><h1>midterm</h1>
+<p><span>解答</span></p>
+<h1>midterm</h1>
 <script>
 var winkVideoData = {
   dataVersion: 1,
@@ -532,7 +525,8 @@ var winkVideoData = {
 <p>...</p>
 <p><span style="background-color: #ffff99;">#編寫python的環境</span></p>
 <p><strong>&lt;/script&gt;</strong></p>
-<p><span style="background-color: #ffff99;">#python的標尾</span></p><h1>Tetris 報告2</h1>
+<p><span style="background-color: #ffff99;">#python的標尾</span></p>
+<h1>Tetris 報告2</h1>
 <p>1.</p>
 <p><img alt="" height="72" src="/images/234、235、236.png" width="722"/></p>
 <p><span style="background-color: #e6e6e6;">      <strong>234</strong>     </span> 用 html 語法建立 DIV 標註物件，字串輸入( "Score:" )使變數顯示為</p>
@@ -571,4 +565,4 @@ var winkVideoData = {
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ white-space-prewrap"></span><span class="JsGRdQ">                   2.完成Tetris 線上遊戲專案報告</span></p>
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W14</span>(5/27)</strong> 1.將舊資料中已退選的成員刪除，放入個人網頁</span></p>
 <p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W15</span>(6/03)</strong> 1.將Tetris 遊戲加入計分系統報告(端午節放假)</span></p>
-<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W16</span>(6/10)</strong> 1.期末報告整理並放入個人網站</span></p></sc<h2></p>
+<p class="_04xlpA direction-ltr align-start para-style-body"><span class="JsGRdQ"><strong><span style="background-color: #ffff99;">W16</span>(6/10)</strong> 1.期末報告整理並放入個人網站</span></p>
